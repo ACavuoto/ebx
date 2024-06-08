@@ -28,4 +28,12 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-app.Run();
+await app.RunAsync();
+
+/// <summary>
+/// Since .NET 8 has removed the startup.cs, program.cs has become internal.
+/// In order to enable usage as a marker in WebApplicationFactory this partial declaration is added as per the Microsoft docs:
+/// https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests
+/// </summary>
+public partial class Program
+{ }

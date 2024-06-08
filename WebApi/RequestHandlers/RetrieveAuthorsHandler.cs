@@ -17,18 +17,18 @@ namespace Ebx.Test.WebApi.RequestHandlers
         private async Task<Result<RetrieveAuthorsResponse>> GetAuthorsFromCommits(RetrieveAuthorsRequest retrieveAuthorsRequest)
         {
             var authors = new HashSet<string>();
+            int commitsCount = 0;
 
-            //TODO: move this config to appsettings.json and inject it
             var options = new ApiOptions
             {
-                PageSize = 100,
+                PageSize = 25,
                 PageCount = 1,
                 StartPage = 1
             };
 
             try
             {
-                while (authors.Count < retrieveAuthorsRequest.AuthorsToTake)
+                while (commitsCount < retrieveAuthorsRequest.CommitsToTake)
                 {
                     var commits = await client.Repository.Commit.GetAll(retrieveAuthorsRequest.Owner, retrieveAuthorsRequest.Repo, options);
 
@@ -48,12 +48,12 @@ namespace Ebx.Test.WebApi.RequestHandlers
                             authors.Add(commit.Commit.Committer.Name);
                         }
 
-                        if (authors.Count == retrieveAuthorsRequest.AuthorsToTake)
+                        if (commitsCount == retrieveAuthorsRequest.CommitsToTake)
                         {
                             break;
                         }
                     }
-
+                    commitsCount += options.PageSize.Value;
                     options.StartPage++;
                 }
 

@@ -2,6 +2,6 @@
 {
     public record RetrieveAuthorsResponse(IReadOnlyList<string> Authors)
     {
-        public int Count => Authors.Count();
+        public int Count => Authors.Count;
     }
 }

@@ -1,5 +1,4 @@
-﻿using Ebx.Test.WebApi.Requests;
-using FluentResults;
+﻿using FluentResults;
 
 namespace Ebx.Test.WebApi.Errors
 {

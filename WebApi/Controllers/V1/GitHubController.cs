@@ -4,7 +4,6 @@ using Ebx.Test.WebApi.Responses;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Octokit;
 
 namespace Ebx.Test.WebApi.Controllers.V1
 {
@@ -45,6 +44,11 @@ namespace Ebx.Test.WebApi.Controllers.V1
             if (result.HasError(x => x.Message == DomainErrors.RetrieveAuthorsResponse.NotFound.Message))
             {
                 return NotFound();
+            }
+
+            if (result.HasError(x => x.Message == DomainErrors.RetrieveAuthorsResponse.RateLimitExceeded.Message))
+            {
+                return StatusCode(StatusCodes.Status429TooManyRequests);
             }
 
             _logger.LogError("GetContributors failed with errors {errors}", result.Errors);
