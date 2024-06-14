@@ -1,7 +1,6 @@
-﻿namespace Ebx.Test.WebApi.Responses
+﻿namespace Ebx.Test.WebApi.Responses;
+
+public record RetrieveAuthorsResponse(IReadOnlyList<string> Authors)
 {
-    public record RetrieveAuthorsResponse(IReadOnlyList<string> Authors)
-    {
-        public int Count => Authors.Count;
-    }
+    public int Count => Authors.Count;
 }

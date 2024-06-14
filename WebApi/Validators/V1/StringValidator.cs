@@ -1,13 +1,12 @@
 ﻿using FluentValidation;
 
-namespace Ebx.Test.WebApi.Validators.V1
+namespace Ebx.Test.WebApi.Validators.V1;
+
+public class StringValidator : AbstractValidator<string>
 {
-    public class StringValidator : AbstractValidator<string>
+    public StringValidator()
     {
-        public StringValidator()
-        {
-            RuleFor(x => x).NotEmpty()
-             .WithMessage(x => $"The parameter '{x}' cannot be empty");
-        }
+        RuleFor(x => x).NotEmpty()
+         .WithMessage(x => $"The parameter '{x}' cannot be empty");
     }
 }
